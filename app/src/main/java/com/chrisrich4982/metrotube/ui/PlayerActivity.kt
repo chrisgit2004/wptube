@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-
+import com.chrisrich4982.metrotube.R
 private const val EXTRA_VIDEO_ID = "video_id"
 private const val EXTRA_TITLE = "title"
 private const val EXTRA_META = "meta"
