@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MetroTube</string>
+    <string name="settings_title">settings</string>
+    <string name="setup_title">first-time setup</string>
+    <string name="setup_body">this build needs a YouTube data API key to fetch videos. you can change it later from settings.</string>
+    <string name="api_key_hint">paste your key here</string>
+    <string name="get_key_link">get a key from google cloud console</string>
+    <string name="save_continue">save and continue</string>
+    <string name="tab_what_to_watch">what to watch</string>
+    <string name="tab_browse">browse</string>
+</resources>
