@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorAppSurface" format="color" />
+    <attr name="colorAppCard" format="color" />
+    <attr name="colorAppHairline" format="color" />
+    <attr name="colorAppTextPrimary" format="color" />
+    <attr name="colorAppTextSecondary" format="color" />
+    <attr name="colorAppAccent" format="color" />
+    <attr name="appCornerRadius" format="dimension" />
+    <attr name="appWordmarkFont" format="string" />
+    <attr name="appTabIndicatorColor" format="color" />
+    <attr name="appTabIndicatorHeight" format="dimension" />
+</resources>

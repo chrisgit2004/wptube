@@ -1,4 +1,4 @@
-package com.example.metrotube.net
+package com.chrisrich4982.metrotube.net
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

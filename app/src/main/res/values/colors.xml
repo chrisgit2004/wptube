@@ -8,4 +8,11 @@
     <color name="text_secondary">#808080</color>
     <color name="text_dim">#4d4d4d</color>
     <color name="accent">#E21F27</color>
+
+    <!-- modern theme palette -->
+    <color name="modern_surface">#0F0F0F</color>
+    <color name="modern_card">#272727</color>
+    <color name="modern_hairline">#3F3F3F</color>
+    <color name="modern_text_secondary">#AAAAAA</color>
+    <color name="modern_accent">#FF0000</color>
 </resources>

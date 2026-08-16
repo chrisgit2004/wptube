@@ -1,4 +1,4 @@
-package com.example.metrotube.ui
+package com.chrisrich4982.metrotube.ui
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

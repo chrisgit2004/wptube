@@ -27,6 +27,17 @@
             android:theme="@style/Theme.MetroTube.NoActionBar" />
 
         <activity
+            android:name=".ui.HubActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MetroTube.NoActionBar" />
+
+        <activity
+            android:name=".ui.PlayerActivity"
+            android:exported="false"
+            android:theme="@style/Theme.MetroTube.NoActionBar"
+            android:configChanges="orientation|screenSize" />
+
+        <activity
             android:name=".ui.SettingsActivity"
             android:exported="false"
             android:label="@string/settings_title"

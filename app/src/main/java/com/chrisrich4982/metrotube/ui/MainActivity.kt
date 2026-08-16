@@ -1,4 +1,4 @@
-package com.example.metrotube.ui
+package com.chrisrich4982.metrotube.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,12 +6,16 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
-import com.example.metrotube.R
-import com.example.metrotube.data.Prefs
+import com.chrisrich4982.metrotube.R
+import com.chrisrich4982.metrotube.data.AppTheme
+import com.chrisrich4982.metrotube.data.Prefs
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var viewPager: ViewPager2
+    private var lastKnownTheme: AppTheme? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +28,10 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+        viewPager = findViewById(R.id.viewPager)
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
+
+        lastKnownTheme = Prefs.getAppTheme(this)
         viewPager.adapter = PivotPagerAdapter(this)
 
         val tabTitles = listOf(
@@ -46,6 +52,18 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<ImageView>(R.id.moreButton).setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Settings may have changed the look (list vs. tile hub) while this
+        // activity was paused - rebuild the pager so the change takes effect
+        // as soon as the user comes back, without needing a manual refresh.
+        val currentTheme = Prefs.getAppTheme(this)
+        if (currentTheme != lastKnownTheme) {
+            lastKnownTheme = currentTheme
+            viewPager.adapter = PivotPagerAdapter(this)
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.metrotube.ui
+package com.chrisrich4982.metrotube.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,17 +7,17 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.metrotube.R
-import com.example.metrotube.data.Prefs
+import com.chrisrich4982.metrotube.R
+import com.chrisrich4982.metrotube.data.Prefs
 
 class SetupActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Skip straight to the main hub if a key is already saved.
+        // Skip straight to home if a key is already saved.
         if (Prefs.hasApiKey(this)) {
-            startActivity(Intent(this, MainActivity::class.java))
+            HomeRouter.goHome(this)
             finish()
             return
         }
@@ -43,7 +43,7 @@ class SetupActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             Prefs.setApiKey(this, key)
-            startActivity(Intent(this, MainActivity::class.java))
+            HomeRouter.goHome(this)
             finish()
         }
     }

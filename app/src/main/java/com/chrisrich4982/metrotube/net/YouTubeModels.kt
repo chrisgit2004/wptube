@@ -1,4 +1,4 @@
-package com.example.metrotube.net
+package com.chrisrich4982.metrotube.net
 
 import com.google.gson.annotations.SerializedName
 

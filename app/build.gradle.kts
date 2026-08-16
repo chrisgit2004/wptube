@@ -4,20 +4,40 @@ plugins {
 }
 
 android {
-    namespace = "com.example.metrotube"
+    namespace = "com.chrisrich4982.metrotube"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.metrotube"
+        applicationId = "com.chrisrich4982.metrotube"
         minSdk = 29 // Android 10+
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.1"
+    }
+
+    signingConfigs {
+        // Checked-in, fixed debug keystore (debug.keystore at the repo root).
+        // Without this, every fresh CI runner would auto-generate its own
+        // random debug key, and consecutive builds would fail to install
+        // over each other as "updates" - Android treats a signing-certificate
+        // mismatch as a different, incompatible app even with the same
+        // applicationId. This keystore has the standard debug password
+        // ("android") and is not sensitive - it's fine to commit.
+        getByName("debug") {
+            storeFile = rootProject.file("debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
     }
 
     buildTypes {
+        debug {
+            signingConfig = signingConfigs.getByName("debug")
+        }
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 

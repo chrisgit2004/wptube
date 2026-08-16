@@ -1,4 +1,4 @@
-package com.example.metrotube.ui
+package com.chrisrich4982.metrotube.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.metrotube.R
-import com.example.metrotube.data.Prefs
-import com.example.metrotube.net.YouTubeApi
+import com.chrisrich4982.metrotube.R
+import com.chrisrich4982.metrotube.data.AppTheme
+import com.chrisrich4982.metrotube.data.Prefs
+import com.chrisrich4982.metrotube.net.VideoItem
+import com.chrisrich4982.metrotube.net.YouTubeApi
 import kotlinx.coroutines.launch
 
 private const val ARG_MODE = "mode"
@@ -37,12 +40,34 @@ class VideoListFragment : Fragment(R.layout.fragment_video_list) {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         val emptyState = view.findViewById<TextView>(R.id.emptyState)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        val adapter = VideoAdapter { video ->
-            video.videoId?.let { openVideo(it) }
+        val onVideoClick: (VideoItem) -> Unit = { video ->
+            val id = video.videoId
+            if (id != null) {
+                val title = video.snippet?.title ?: ""
+                val channel = video.snippet?.channelTitle ?: ""
+                val views = video.statistics?.viewCount
+                val meta = if (views != null) "$channel · $views views" else channel
+                PlayerActivity.start(requireContext(), id, title, meta)
+            }
         }
-        recyclerView.adapter = adapter
+
+        // CLASSIC = the original 2013 tile-hub look, MODERN = the pivot-tab
+        // list from the later, revised WP client. Toggled from Settings.
+        val theme = Prefs.getAppTheme(requireContext())
+
+        var listAdapter: VideoAdapter? = null
+        var tileAdapter: TileVideoAdapter? = null
+
+        if (theme == AppTheme.CLASSIC) {
+            recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+            tileAdapter = TileVideoAdapter(onVideoClick)
+            recyclerView.adapter = tileAdapter
+        } else {
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            listAdapter = VideoAdapter(onVideoClick)
+            recyclerView.adapter = listAdapter
+        }
 
         val apiKey = Prefs.getApiKey(requireContext())
         if (apiKey == null) {
@@ -65,7 +90,8 @@ class VideoListFragment : Fragment(R.layout.fragment_video_list) {
                 if (response.items.isEmpty()) {
                     emptyState.visibility = View.VISIBLE
                 } else {
-                    adapter.submitList(response.items)
+                    listAdapter?.submitList(response.items)
+                    tileAdapter?.submitList(response.items)
                 }
             } catch (e: Exception) {
                 emptyState.text = "couldn't load videos: ${e.message}"
@@ -74,13 +100,4 @@ class VideoListFragment : Fragment(R.layout.fragment_video_list) {
         }
     }
 
-    private fun openVideo(videoId: String) {
-        // Hands off playback to the YouTube app or browser rather than
-        // embedding a player — keeps this project focused on the browsing UI.
-        val intent = android.content.Intent(
-            android.content.Intent.ACTION_VIEW,
-            android.net.Uri.parse("https://www.youtube.com/watch?v=$videoId")
-        )
-        startActivity(intent)
-    }
 }

@@ -13,4 +13,34 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <!-- 2013 / Windows Phone look: pure black, sharp corners, thin wordmark -->
+    <style name="Theme.MetroTube.Classic" parent="Theme.MetroTube.NoActionBar">
+        <item name="colorAppSurface">@color/black</item>
+        <item name="colorAppCard">@color/card</item>
+        <item name="colorAppHairline">@color/hairline</item>
+        <item name="colorAppTextPrimary">@color/text_primary</item>
+        <item name="colorAppTextSecondary">@color/text_secondary</item>
+        <item name="colorAppAccent">@color/accent</item>
+        <item name="appCornerRadius">0dp</item>
+        <item name="appWordmarkFont">sans-serif-light</item>
+        <item name="appTabIndicatorColor">@color/text_primary</item>
+        <item name="appTabIndicatorHeight">2dp</item>
+        <item name="android:windowBackground">@color/black</item>
+    </style>
+
+    <!-- Modern look: closer to today's YouTube - rounded cards, YouTube red -->
+    <style name="Theme.MetroTube.Modern" parent="Theme.MetroTube.NoActionBar">
+        <item name="colorAppSurface">@color/modern_surface</item>
+        <item name="colorAppCard">@color/modern_card</item>
+        <item name="colorAppHairline">@color/modern_hairline</item>
+        <item name="colorAppTextPrimary">@color/text_primary</item>
+        <item name="colorAppTextSecondary">@color/modern_text_secondary</item>
+        <item name="colorAppAccent">@color/modern_accent</item>
+        <item name="appCornerRadius">14dp</item>
+        <item name="appWordmarkFont">sans-serif-medium</item>
+        <item name="appTabIndicatorColor">@color/modern_accent</item>
+        <item name="appTabIndicatorHeight">3dp</item>
+        <item name="android:windowBackground">@color/modern_surface</item>
+    </style>
 </resources>
